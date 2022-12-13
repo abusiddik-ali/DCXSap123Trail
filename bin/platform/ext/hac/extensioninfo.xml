@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+        
+    <extension abstractclassprefix="Generated" classprefix="Hac" jaloLogicFree="true" managername="HacManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="hac" usemaven="false">
+                
+        <requires-extension name="platformservices"/>
+                
+        <coremodule generated="true" manager="de.hybris.platform.hac.jalo.HacManager" packageroot="de.hybris.platform.hac"/>
+                
+        <webmodule jspcompile="false" webroot=""/>
+            
+    </extension>
+    
+</extensioninfo>

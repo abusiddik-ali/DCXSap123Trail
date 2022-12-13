@@ -1,0 +1,15 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+insert_update Media;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];alttext;catalogVersion(catalog(id),version)[unique=true,allownull=true];code[unique=true];description;mime;owner(&Item)[forceWrite=true];realfilename;removable;url
+;file:ext/impex/resources/impex/testfiles/import/media/dummymedia/img_01.jpg;;;image_01.jpg;;image/jpg;;image_01.jpg;true;/medias/testdata/media/exampleproduct/image_01.jpg
+;file:ext/impex/resources/impex/testfiles/import/media/dummymedia/img 02.jpg;;;image_02.jpg;;image/jpg;;image_02.jpg;true;/medias/testdata/media/exampleproduct/image_02.jpg
+;img_03.jpg;;;image_03.jpg;;image/jpg;;image_03.jpg;true;/medias/testdata/media/exampleproduct/image_03.jpg
+;img 04.jpg;;;image_04.jpg;;image/jpg;;image_04.jpg;true;/medias/testdata/media/exampleproduct/image_04.jpg
+;jar:/impex/testfiles/import/media/dummymedia/img_05.jpg;;;image_05.jpg;;image/jpg;;image_05.jpg;true;/medias/testdata/media/exampleproduct/image_05.jpg
+;jar:/impex/testfiles/import/media/dummymedia/img 06.jpg;;;image_06.jpg;;image/jpg;;image_06.jpg;true;/medias/testdata/media/exampleproduct/image_06.jpg
+;jar:de.hybris.platform.servicelayer.internal.jalo.ServicelayerManager&/impex/testfiles/import/media/dummymedia/img_07.jpg;;;image_07.jpg;;image/jpg;;image_07.jpg;true;/medias/testdata/media/exampleproduct/image_07.jpg
+;jar:de.hybris.platform.servicelayer.internal.jalo.ServicelayerManager&/impex/testfiles/import/media/dummymedia/img 08.jpg;;;image_08.jpg;;image/jpg;;image_08.jpg;true;/medias/testdata/media/exampleproduct/image_08.jpg
+;zip:ext/impex/resources/impex/testfiles/import/media/dummymedia/test_9-10.zip&img_09.jpg;;;image_09.jpg;;image/jpg;;image_09.jpg;true;/medias/testdata/media/exampleproduct/image_09.jpg
+;zip:ext/impex/resources/impex/testfiles/import/media/dummymedia/test_9-10.zip&img 10.jpg;;;image_10.jpg;;image/jpg;;image_10.jpg;true;/medias/testdata/media/exampleproduct/image_10.jpg

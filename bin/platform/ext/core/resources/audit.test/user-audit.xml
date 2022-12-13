@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<audit-report-config name="testConfig" auditRecordsProvider="auditRecordsProvider" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="../audit/audit.xsd">
+	<given-root-type>User</given-root-type>
+	<types>
+		<type code="User">
+			<atomic-attributes>
+				<atomic-attribute qualifier="uid"/>
+				<atomic-attribute qualifier="name"/>
+				<atomic-attribute qualifier="description"/>
+				<atomic-attribute qualifier="passwordQuestion"/>
+				<atomic-attribute qualifier="passwordAnswer"/>
+				<atomic-attribute qualifier="encodedPassword"/>
+				<atomic-attribute qualifier="loginDisabled"/>
+				<atomic-attribute qualifier="hmcLoginDisabled"/>
+				<atomic-attribute qualifier="lastLogin"/>
+			</atomic-attributes>
+		</type>
+	</types>
+</audit-report-config>

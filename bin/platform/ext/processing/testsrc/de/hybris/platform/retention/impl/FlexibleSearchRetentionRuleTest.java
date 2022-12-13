@@ -1,0 +1,81 @@
+/*
+ * Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+ */
+package de.hybris.platform.retention.impl;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import de.hybris.bootstrap.annotations.UnitTest;
+import de.hybris.platform.processing.model.FlexibleSearchRetentionRuleModel;
+
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.commons.collections4.map.HashedMap;
+import org.junit.Test;
+
+
+@UnitTest
+public class FlexibleSearchRetentionRuleTest
+{
+
+	@Test
+	public void shoulReturnCalculatedParam()
+	{
+		//given
+		final FlexibleSearchRetentionRuleModel ruleModel = new FlexibleSearchRetentionRuleModel();
+		ruleModel.setRetentionTimeSeconds(Long.valueOf(600));
+		final FlexibleSearchRetentionItemsProvider retentionProvider = new FlexibleSearchRetentionItemsProvider(ruleModel);
+
+		//when
+		final Map<String, Object> finalValueMap = retentionProvider.getFinalQueryParams();
+
+		//then
+		assertThat(finalValueMap.get(FlexibleSearchRetentionItemsProvider.PARAM_CALC_RETIREMENT_DATE)).isInstanceOf(Date.class);
+		assertThat(finalValueMap.get(FlexibleSearchRetentionItemsProvider.PARAM_JAVA_CURRENT_TIME)).isInstanceOf(Date.class);
+		assertThat(finalValueMap.get(FlexibleSearchRetentionItemsProvider.PARAM_RETENTION_TIME_SECONDS)).isInstanceOf(Long.class);
+		assertThat(finalValueMap.get(FlexibleSearchRetentionItemsProvider.PARAM_RETENTION_TIME_SECONDS))
+				.isEqualTo(Long.valueOf(600));
+	}
+
+	@Test
+	public void shoulReturnCalculatedParamAndAdditionalParam()
+	{
+		//given
+		final FlexibleSearchRetentionRuleModel ruleModel = new FlexibleSearchRetentionRuleModel();
+		final String ADDITIONAL_PARAM = "ADDITIONAL_PARAM";
+		final Map<String, String> params = new HashedMap<>();
+		params.put(ADDITIONAL_PARAM, "VALUE");
+		ruleModel.setRetentionTimeSeconds(Long.valueOf(6000));
+		ruleModel.setQueryParameters(params);
+		final FlexibleSearchRetentionItemsProvider retentionProvider = new FlexibleSearchRetentionItemsProvider(ruleModel);
+
+		//when
+		final Map<String, Object> finalValueMap = retentionProvider.getFinalQueryParams();
+
+		//then
+		assertThat(finalValueMap.get(FlexibleSearchRetentionItemsProvider.PARAM_CALC_RETIREMENT_DATE)).isInstanceOf(Date.class);
+		assertThat(finalValueMap.get(ADDITIONAL_PARAM)).isInstanceOf(String.class);
+		assertThat(finalValueMap.get(ADDITIONAL_PARAM)).isEqualTo("VALUE");
+
+	}
+
+	@Test
+	public void shouldOverrideCaluclatedParam()
+	{
+		//given
+		final FlexibleSearchRetentionRuleModel ruleModel = new FlexibleSearchRetentionRuleModel();
+		final Map<String, String> params = new HashedMap<>();
+		params.put(FlexibleSearchRetentionItemsProvider.PARAM_CALC_RETIREMENT_DATE, "OVERRIDE");
+		ruleModel.setQueryParameters(params);
+		final FlexibleSearchRetentionItemsProvider retentionProvider = new FlexibleSearchRetentionItemsProvider(ruleModel);
+
+		//when
+		final Map<String, Object> finalValueMap = retentionProvider.getFinalQueryParams();
+
+		//then
+		assertThat(finalValueMap.get(FlexibleSearchRetentionItemsProvider.PARAM_CALC_RETIREMENT_DATE)).isEqualTo("OVERRIDE");
+	}
+
+
+}

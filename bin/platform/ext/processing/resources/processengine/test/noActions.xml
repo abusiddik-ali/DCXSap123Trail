@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="start" name="process1">
+
+	<contextParameter name="order" use="required" type="de.hybris.platform.jalo.order.Order" />
+	
+</process>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<bean depends-on="stringMap" parent="mapMergeDirective">
+		<property name="key" value="ccc"/>
+		<property name="value" value="333"/>
+	</bean>
+
+	<bean depends-on="stringMap" parent="mapMergeDirective">
+		<property name="key" value="bbb"/>
+		<property name="value" value="444"/>
+	</bean>
+
+	<bean depends-on="multiMap" parent="mapMergeDirective">
+		<property name="key" value="bbb"/>
+		<property name="value">
+			<list>
+				<value>5</value>
+				<value>6</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean depends-on="multiMap" parent="mapMergeDirective">
+		<property name="key" value="ccc"/>
+		<property name="value">
+			<list>
+				<value>7</value>
+				<value>8</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+		<property name="mapPropertyDescriptor" value="stringMap"/>
+		<property name="key" value="ccc"/>
+		<property name="value" value="333"/>
+	</bean>
+
+	<bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+		<property name="mapPropertyDescriptor" value="stringMap"/>
+		<property name="key" value="bbb"/>
+		<property name="value" value="444"/>
+	</bean>
+
+	<bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+		<property name="mapPropertyDescriptor" value="multiMap"/>
+		<property name="key" value="bbb"/>
+		<property name="value">
+			<list>
+				<value>5</value>
+				<value>6</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+		<property name="mapPropertyDescriptor" value="multiMap"/>
+		<property name="key" value="ccc"/>
+		<property name="value">
+			<list>
+				<value>7</value>
+				<value>8</value>
+			</list>
+		</property>
+	</bean>
+
+
+    <!-- invalid property -->
+    <bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+        <property name="mapPropertyDescriptor" value="invalidStringMap" />
+        <property name="key" value="eee"/>
+        <property name="value" value="333"/>
+    </bean>
+
+    <!-- null list -->
+    <bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+        <property name="mapPropertyDescriptor" value="nullStringMap" />
+        <property name="key" value="eee"/>
+        <property name="value" value="333"/>
+    </bean>
+
+    <!-- property is not a list -->
+    <bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+        <property name="mapPropertyDescriptor" value="stringList" />
+        <property name="key" value="eee"/>
+        <property name="value" value="333"/>
+    </bean>
+
+
+    <!-- invalid property -->
+    <bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+        <property name="fieldName" value="invalidStringMap" />
+        <property name="key" value="eee"/>
+        <property name="value" value="333"/>
+    </bean>
+
+    <!-- null list -->
+    <bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+        <property name="fieldName" value="nullStringMap" />
+        <property name="key" value="eee"/>
+        <property name="value" value="333"/>
+    </bean>
+
+    <!-- property is not a list -->
+    <bean depends-on="mergeFieldTestBean" parent="mapMergeDirective">
+        <property name="fieldName" value="stringList" />
+        <property name="key" value="eee"/>
+        <property name="value" value="333"/>
+    </bean>
+</beans>

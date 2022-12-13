@@ -1,0 +1,77 @@
+/*
+ * ----------------------------------------------------------------
+ * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN!
+ * --- Generated at $currentDateTime
+ * ----------------------------------------------------------------
+ *
+ * Copyright (c) $currentYear SAP SE or an SAP affiliate company. All rights reserved.
+ */
+package $packageName;
+
+import java.io.Serializable;
+#if(! $superclassName)
+import de.hybris.platform.servicelayer.event.events.AbstractEvent;
+#end
+
+#foreach($i in $imports)
+import $i;
+#end
+#if ( ! $imports.isEmpty() )
+
+#end
+#if ( $hasDescription )
+/**
+ * $description
+ */
+#end
+public class $shortClassName #if($superclassName)extends $superclassName #else extends AbstractEvent #end
+{
+
+#foreach($v in $memberVariables)
+	$v.comment
+	private $v.type $v.name;
+#end
+	
+	public ${constructorName}()
+	{
+		super();
+	}
+
+	/**
+	 * Attention: for backward compatibility this constructor invokes <pre>setOrder(source)</pre> in case the source object is a OrderModel!  
+	 */
+	public ${constructorName}(final Serializable source)
+	{
+		super(source);
+		
+		// compatibility!
+		if( source instanceof OrderModel )
+		{
+			setOrder((OrderModel)source);
+		}
+	}
+	
+#foreach($v in $memberVariables)
+	#if ($v.overridden)@Override #end
+	
+	public void set${StringUtils.capitalize($v.name)}(final ${v.type} ${v.name})
+	{
+		this.${v.name} = ${v.name};
+	}
+	
+	#if ($v.overridden)	@Override #end
+	#if ($v.type == 'boolean')	
+	public $v.type is${StringUtils.capitalize($v.name)}() 
+	{
+		return $v.name;
+	}
+	#else
+	
+	public $v.type get${StringUtils.capitalize($v.name)}() 
+	{
+		return $v.name;
+	}
+	#end
+	
+#end
+}

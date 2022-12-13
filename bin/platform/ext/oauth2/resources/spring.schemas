@@ -1,0 +1,8 @@
+#
+# Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+#
+
+# backward compatibility for referencing spring-security-oauth2 xsd schemas via http
+http\://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd=org/springframework/security/oauth2/spring-security-oauth2-1.0.xsd
+http\://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd=org/springframework/security/oauth2/spring-security-oauth2-2.0.xsd
+http\://www.springframework.org/schema/security/spring-security-oauth2.xsd=org/springframework/security/oauth2/spring-security-oauth2-2.0.xsd

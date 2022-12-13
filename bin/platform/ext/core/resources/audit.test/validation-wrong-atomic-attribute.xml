@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<audit-report-config name="PRODUCT">
+    <given-root-type>Product</given-root-type>
+    <types>
+        <type code="Product" displayName="Product">
+            <atomic-attributes>
+            	    <atomic-attribute qualifier="notexist1" displayName="notexist1"/>
+                <atomic-attribute qualifier="code" displayName="code"/>
+                <atomic-attribute qualifier="notexist2" displayName="notexist2"/>
+            </atomic-attributes>
+        </type>
+    </types>
+</audit-report-config>

@@ -1,0 +1,6 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+"#% ImpExManager.getInstance().importData(ImpExManager.class.getResourceAsStream(""/impex/testfiles/productFull.impex""), ""UTF-8"", ';', '""', false)"
+"#% ImpExManager.getInstance().importDataLight(ImpExManager.class.getResourceAsStream(""/impex/testfiles/productFull.impex""), ""UTF-8"", false)"

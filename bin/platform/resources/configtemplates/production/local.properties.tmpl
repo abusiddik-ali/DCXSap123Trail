@@ -1,0 +1,25 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+# see bin/platform/project.properties or dev.hybris.de for information about possible properties
+tomcat.maxthreads=200
+tomcat.minsparethreads=50
+tomcat.maxidletime=10000
+tomcat.acceptcount=100
+build.development.mode=false
+tomcat.development.mode=false
+cache.main=300000
+tomcat.generaloptions=${tomcat.jdkmodules.config} -Xmx${javaMem} -Xms${javaMem} -Xss${javaXss} -Djava.locale.providers=COMPAT,CLDR -ea -Dcatalina.base=%CATALINA_BASE% -Dcatalina.home=%CATALINA_HOME% -Dfile.encoding=UTF-8 -Djava.util.logging.config.file=jdk_logging.properties -Djava.io.tmpdir="${HYBRIS_TEMP_DIR}" -XX:+DisableExplicitGC  -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+ParallelRefProcEnabled -XX:+CMSScavengeBeforeRemark #if( $windowsOs == "true" )-Xloggc:"${HYBRIS_LOG_DIR}\\tomcat\\java_gc.log"#else-Xlog:gc:"${HYBRIS_LOG_DIR}/tomcat/java_gc.log"#end -Dorg.tanukisoftware.wrapper.WrapperManager.mbean=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.client.gcInterval=3600000
+
+#put your additional java options here
+tomcat.javaoptions=
+
+db.pool.maxActive=90 
+db.pool.maxIdle=90
+
+cronjob.maxthreads=50
+
+#don't use additional trust store on the production environment
+additional.javax.net.ssl.trustStore=
+additional.javax.net.ssl.trustStorePassword=

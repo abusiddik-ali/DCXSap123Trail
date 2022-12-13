@@ -1,0 +1,10 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+INSERT_UPDATE ComposedType;code[unique=true];name;catalogItemType;generate;superType(code);singleton
+;TestComposedTypeParent;TestComposedTypeParent;false;false;ComposedType;false
+;TestComposedTypeChild;TestComposedTypeChild;false;false;TestComposedTypeParent;false
+
+INSERT_UPDATE CollectionType;code[unique=true];name;generate;elementType(code)
+;TestCollectionType;TestCollectionType;true;java.lang.String

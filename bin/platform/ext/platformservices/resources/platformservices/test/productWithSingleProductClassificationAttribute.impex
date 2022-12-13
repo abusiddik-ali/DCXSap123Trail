@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+$classificationCatalog = example
+$version = 1.0
+$catalogVersion = catalogversion(catalog(id[default = $classificationCatalog]), version[default = $version])[unique = true]
+$classificationSystemVersion = systemVersion(catalog(id[default = $classificationCatalog]), version[default = $version])[unique = true]
+$class = classificationClass(ClassificationClass.code, $catalogVersion)[unique = true]
+$attribute = classificationAttribute(code, $classificationSystemVersion)[unique = true]
+
+INSERT_UPDATE ClassificationSystem; id[unique = true]      ; name[lang = en]        ;
+                                  ; $classificationCatalog ; $classificationCatalog ;
+
+INSERT_UPDATE ClassificationSystemVersion; catalog(id)[unique = true]; version[unique = true];
+                                         ; $classificationCatalog    ; $version              ;
+
+INSERT_UPDATE ClassificationClass; code[unique = true]      ; $catalogVersion[unique = true, allowNull = true];
+                                 ; firstClassificationClass ;                                                 ;
+
+INSERT_UPDATE ClassificationAttribute; $classificationSystemVersion; code[unique = true];
+                                     ;                             ; singleProduct      ;
+
+INSERT_UPDATE ClassAttributeAssignment; $class                   ; $attribute    ; position; attributeType(code); referenceType(code); multiValued[default = false]; range ; localized;
+                                      ; firstClassificationClass ; singleProduct ; 1       ; reference          ; Product            ; false                       ; false ; false    ;
+
+INSERT_UPDATE Product; catalogVersion(version, catalog(id))[unique = true]; code[unique = true]; supercategories(code, catalogVersion(version, catalog(id)))                    ; @singleProduct(code, catalogVersion(version, catalog(id)))[system = 'example', attributeType = 'null', version = '1.0', translator = de.hybris.platform.catalog.jalo.classification.impex.ClassificationAttributeTranslator];
+                     ; Online:hwcatalog          ; First       ; firstClassificationClass:1.0:example ; Third:Online:hwcatalog                                                                                           ;
+                     ; Online:hwcatalog          ; Second      ; firstClassificationClass:1.0:example ; First:Online:hwcatalog                                                                                            ;
+                     ; Online:hwcatalog          ; Third       ; firstClassificationClass:1.0:example ; Second:Online:hwcatalog                                                                                         ;

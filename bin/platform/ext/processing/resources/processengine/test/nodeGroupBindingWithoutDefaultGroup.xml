@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition"
+	start="actionWithoutClusterNodeOrGrouDefined" name="nodeGroupBindingWithoutDefaultGroup">
+
+	<action id="actionWithoutClusterNodeOrGrouDefined" bean="noAction">
+		<transition name="OK" to="actionWithClusterNodeDefined" />
+	</action>
+
+	<action id="actionWithClusterNodeDefined" bean="noAction" node="666">
+		<transition name="OK" to="actionWithClusterGroupDefined" />
+	</action>
+	
+	<action id="actionWithClusterGroupDefined" bean="noAction" nodeGroup="actionGroup">
+		<transition name="OK" to="actionWithClusterGroupAndNodeDefined" />
+	</action>
+	
+	<action id="actionWithClusterGroupAndNodeDefined" bean="noAction" node="666" nodeGroup="actionGroup">
+		<transition name="OK" to="notify" />
+	</action>
+
+	<notify id="notify" then="wait">
+		<userGroup name="test">
+			<locmessage name="test" language="lng" />
+		</userGroup>
+	</notify>
+
+	<wait id="wait" then="success">
+		<event>SomethingToHappen</event>
+	</wait>
+
+	<end id="success" state="SUCCEEDED">Everything was fine</end>
+</process>

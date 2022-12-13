@@ -1,0 +1,149 @@
+/*
+ * ----------------------------------------------------------------
+ * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN!
+ * --- Generated at $currentDateTime
+ * ----------------------------------------------------------------
+ *
+ * Copyright (c) $currentYear SAP SE or an SAP affiliate company. All rights reserved.
+ */
+package $packageName;
+
+#if( ! $superclassName)
+import java.io.Serializable;
+#end
+#foreach($i in $imports)
+import $i;
+#end
+#if ( ! ($imports.isEmpty() && $superclassName) )
+
+#end
+
+import java.util.Objects;
+#if ( $hasDescription || $hasDeprecated )
+/**
+#end
+#if ( $hasDescription)
+ * $description
+#end
+#if ( $hasDescription && $hasDeprecated )
+ *
+#end
+#if ( $hasDeprecated )
+ * @deprecated $deprecated
+#end
+#if ( $hasDescription || $hasDeprecated )
+ */
+#end
+#if ( $hasAnnotations )
+$annotations.trim()
+#end
+#if ( $hasDeprecatedSince )
+@Deprecated(since = "$deprecatedSince", forRemoval = true)
+#elseif ( $hasDeprecated )
+@Deprecated(forRemoval = true)
+#end
+public #if ($isAbstract)abstract #end class $shortClassName #if($superclassName)extends $superclassName #else implements Serializable #end
+
+{
+
+ #if( ! $superclassName)	/** Default serialVersionUID value. */
+ 
+	private static final long serialVersionUID = 1L;#end
+
+#foreach($v in $memberVariables)
+
+	$v.comment
+	#if ("$!v.memberAnnotations" != "")$v.memberAnnotations.trim() #end
+	
+	private $v.type $v.name;
+#end
+	
+	public ${constructorName}()
+	{
+		// default constructor
+	}
+	
+#foreach($v in $memberVariables)
+#if ($v.deprecated)
+	/**
+	 * @deprecated $v.deprecatedMessage
+	 */
+#end
+#if ( $v.deprecatedSince )
+	@Deprecated(since = "$v.deprecatedSinceValue", forRemoval = true)
+#elseif ( $v.deprecated )
+	@Deprecated(forRemoval = true)
+#end
+#if ($v.overridden)@Override #end
+#if ("$!v.setterAnnotations" != "")$v.setterAnnotations.trim() #end
+	public void set${StringUtils.capitalize($v.name)}(final ${v.type} ${v.name})
+	{
+		this.${v.name} = ${v.name};
+	}
+
+#if ($v.deprecated)
+	/**
+	 * @deprecated $v.deprecatedMessage
+	 */
+#end
+#if ( $v.deprecatedSince )
+	@Deprecated(since = "$v.deprecatedSinceValue", forRemoval = true)
+#elseif ( $v.deprecated )
+	@Deprecated(forRemoval = true)
+#end
+#if ($v.overridden)@Override #end
+#if ("$!v.getterAnnotations" != "")$v.getterAnnotations.trim() #end
+#if ($v.type == 'boolean')	
+	public $v.type is${StringUtils.capitalize($v.name)}() 
+	{
+		return $v.name;
+	}
+#else
+	public $v.type get${StringUtils.capitalize($v.name)}() 
+	{
+		return $v.name;
+	}
+#end
+	
+#end
+
+#if ($hasEqualsProperties)
+	@Override
+	public boolean equals(final Object o)
+	{
+#if ($superEquals)
+		boolean superEquals = super.equals(o);
+		if( !superEquals ) return false;
+#end
+		if (o == null) return false;
+		if (o == this) return true;
+
+        if (getClass() != o.getClass()) return false;
+
+		final $shortClassName other = ($shortClassName) o;
+		return #foreach($v in $equalsProperties)
+#if ($v.type == 'boolean')
+Objects.equals(is${StringUtils.capitalize($v.name)}(), other.is${StringUtils.capitalize($v.name)}())#if(! $foreach.hasNext);#end
+#else
+Objects.equals(get${StringUtils.capitalize($v.name)}(), other.get${StringUtils.capitalize($v.name)}())#if(! $foreach.hasNext);#end
+#end
+
+#if($foreach.hasNext)			&& #end
+#end
+    }
+
+	@Override
+	public int hashCode()
+	{
+		int result = 1;
+		Object attribute;
+
+#foreach($v in $equalsProperties)
+		attribute = $v.name;
+		result = 31 * result + (attribute == null ? 0 : attribute.hashCode());
+#end
+
+		return result;
+	}
+#end
+}

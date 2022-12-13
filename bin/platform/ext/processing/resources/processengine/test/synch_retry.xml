@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="start" name="synchFailTestProces">
+
+	<action id="start" bean="TestActionBean">
+		<transition name="OK" to="secondStep"/>
+	</action>
+	
+	<action id="secondStep" bean="RetryBean" canJoinPreviousNode="true">
+		<transition name="OK" to="success"/>
+	</action>
+
+	<end id="success" state="SUCCEEDED">Everything was fine</end>
+</process>

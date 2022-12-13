@@ -1,0 +1,60 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+$lang=es
+
+#% if: de.hybris.platform.servicelayer.i18n.util.LanguageUtils.isLanguagePresent("$lang")
+
+$dummyUserName=admin;
+$adhocTempateName=adhoctemplate;
+
+$adhocStepName=Adhoc step;
+$adhocApprovalStepName=Approval;
+$adhocEndStepName=End
+$doneName=Done;
+$approvedName=Approved;
+$notApprovedName=Not approved;
+$endName=End
+
+
+# import special (simple) template for creating adhoc workflows:
+INSERT_UPDATE WorkflowTemplate;code[unique=true];name[lang=$lang];description[lang=$lang];owner(User.uid);
+;$adhocTempateName;Plantilla ad hoc;Plantilla con una tarea simple;$dummyUserName;
+
+# add two simple steps to adhoc template
+## step one
+INSERT_UPDATE WorkflowActionTemplate;code[unique=true];name[lang=$lang];principalAssigned(User.uid);owner(User.uid);workflow(WorkflowTemplate.code);actionType(code)
+;$adhocStepName;Inicio;$dummyUserName;$dummyUserName;$adhocTempateName;start
+
+## step two
+INSERT_UPDATE WorkflowActionTemplate;code[unique=true];name[lang=$lang];principalAssigned(User.uid);owner(User.uid);workflow(WorkflowTemplate.code);actionType(code)
+;$adhocApprovalStepName;Aprobación;$dummyUserName;$dummyUserName;$adhocTempateName;normal
+
+#decisions for first step
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=$lang];actionTemplate(WorkflowActionTemplate.code);
+;$doneName;Hecho;$adhocStepName;
+
+INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation;source(WorkflowDecisionTemplate.code)[unique=true];target(WorkflowActionTemplate.code)
+;$doneName;$adhocApprovalStepName
+
+#decisions for second step
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=$lang];actionTemplate(WorkflowActionTemplate.code);
+;$approvedName;Aprobación;$adhocApprovalStepName;
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=$lang];actionTemplate(WorkflowActionTemplate.code);
+;$notApprovedName;Sin aprobación;$adhocApprovalStepName;
+
+INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation;source(WorkflowDecisionTemplate.code)[unique=true];target(WorkflowActionTemplate.code)
+;$notApprovedName;$adhocStepName
+INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation;source(WorkflowDecisionTemplate.code)[unique=true];target(WorkflowActionTemplate.code)
+;$approvedName;$adhocEndStepName
+
+## step three - final
+INSERT_UPDATE WorkflowActionTemplate;code[unique=true];name[lang=$lang];principalAssigned(User.uid);owner(User.uid);workflow(WorkflowTemplate.code);actionType(code)
+;$adhocEndStepName;Fin;$dummyUserName;$dummyUserName;$adhocTempateName;end
+
+#decisions for third step
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=$lang];actionTemplate(WorkflowActionTemplate.code);
+;$endName;Fin;$adhocEndStepName;
+
+#% endif:

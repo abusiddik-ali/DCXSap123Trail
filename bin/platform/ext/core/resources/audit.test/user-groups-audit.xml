@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<audit-report-config name="UserReport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="../audit/audit.xsd">
+	<given-root-type>User</given-root-type>
+	<types>
+		<type code="User" displayName="User">
+			<atomic-attributes>
+				<atomic-attribute qualifier="name" displayName="name"/>
+				<atomic-attribute qualifier="uid" displayName="uid"/>
+			</atomic-attributes>
+			<relation-attributes>
+				<relation-attribute relation="principalGroupRelation" displayName="groups" many="true" type="UserGroup"/>
+			</relation-attributes>
+		</type>
+
+		<type code="UserGroup">
+			<atomic-attributes>
+				<atomic-attribute qualifier="locName" displayName="locName"/>
+			</atomic-attributes>
+		</type>
+	</types>
+</audit-report-config>

@@ -1,0 +1,15 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+INSERT_UPDATE Title[impex.legacy.mode=true];code[unique=true]
+;foo
+#% boolean isUsingSLHandler =  impex.getImportProcessor().getHandlerForLine(impex.getCurrentValueLine()) instanceof de.hybris.platform.servicelayer.impex.impl.SLImpexImportCUDHandler;
+#% if: isUsingSLHandler;
+;barSL
+#% endif:
+#% if:  !isUsingSLHandler;
+;barJalo
+#% endif:
+
+

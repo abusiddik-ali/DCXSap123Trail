@@ -1,0 +1,40 @@
+/*
+ * ----------------------------------------------------------------
+ * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN!
+ * --- Generated at $currentDateTime
+ * ----------------------------------------------------------------
+ *
+ * Copyright (c) $currentYear SAP SE or an SAP affiliate company. All rights reserved.
+ */
+package $packageName;
+
+#if ( $hasDescription || $hasDeprecated )
+/**
+#end
+#if ( $hasDescription)
+ * $description
+#end
+#if ( $hasDescription && $hasDeprecated )
+ *
+#end
+#if ( $hasDeprecated )
+ * @deprecated $deprecated
+#end
+#if ( $hasDescription || $hasDeprecated )
+ */
+#end
+#if ( $hasDeprecatedSince )
+@Deprecated(since = "$deprecatedSince", forRemoval = true)
+#elseif ( $hasDeprecated )
+@Deprecated(forRemoval = true)
+#end
+public enum $shortClassName
+{
+
+#foreach($v in $enumValue)
+	$v.comment
+	${StringUtils.upperCase($v.name)}#if ($foreach.last)  #else , #end
+
+#end
+
+}

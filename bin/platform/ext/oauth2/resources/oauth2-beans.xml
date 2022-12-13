@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.oauth2.data.AuthenticatedUserData">
+		<property name="displayName" type="java.lang.String"/>
+	</bean>
+
+	<bean class="de.hybris.ouath2.openidconnect.dto.IDTokenParameterData">
+		<property name="kid" type="String"/>
+		<property name="securityKeystoreLocation" type="String"/>
+		<property name="securityKeystorePassword" type="String"/>
+		<property name="algorithm" type="String"/>
+		<property name="idTokenValiditySeconds" type="int"/>
+	</bean>
+
+</beans>

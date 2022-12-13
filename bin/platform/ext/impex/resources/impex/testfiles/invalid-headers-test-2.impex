@@ -1,0 +1,10 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+INSERT_UPDATE UserGroup;UID[unique=true];locname[lang=en]
+;mygroup;mygroup;
+
+
+INSERT_UPDATE UserGroup;UID[unique=true];nosuchcolumn[lang=en]
+;mygroup2;mygroup2;

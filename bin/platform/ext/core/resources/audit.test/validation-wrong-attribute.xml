@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<audit-report-config name="PRODUCT">
+    <given-root-type>Product</given-root-type>
+    <types>
+        <type code="Product" displayName="Product">
+            <atomic-attributes>
+                <atomic-attribute qualifier="code" displayName="code"/>
+            </atomic-attributes>
+            <reference-attributes>
+                <reference-attribute qualifier="notexist" displayName="unit" type="Unit"/>
+            </reference-attributes>
+        </type>
+        <type code="Unit">
+            <atomic-attributes>
+                <atomic-attribute qualifier="code" displayName="code"/>
+            </atomic-attributes>
+        </type>
+    </types>
+</audit-report-config>

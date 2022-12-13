@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+    		
+    <extension name="testweb" usemaven="false">
+        		
+        <requires-extension name="core"/>
+        		
+
+        
+        <!--
+            /test context is mapped only for junit tenant - fixed - no available web context for testweb in master tenant
+        -->
+        		
+        <webmodule jspcompile="false" webroot="/test"/>
+        	
+    </extension>
+    
+</extensioninfo>

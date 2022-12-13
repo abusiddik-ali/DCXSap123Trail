@@ -1,0 +1,8 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+INSERT_UPDATE Title;code[unique=true]
+#%groovy% afterEach: impex.lastImportedItem.code = "${impex.lastImportedItem.code}_modified"
+;foo
+;bar

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<conditional-audit-config>
+    <audit-group name="cart-entry">
+        <condition>get('uid').endsWith('_audit')</condition>
+        <type code="User" conditional="%s">
+            <type code="Cart" attribute="user" conditional="%s">
+                <type code="CartEntry" attribute="order" conditional="%s"/>
+            </type>
+        </type>
+    </audit-group>
+</conditional-audit-config>

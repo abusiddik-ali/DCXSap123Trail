@@ -1,0 +1,11 @@
+#Ant properties
+#Tue Feb 01 14:41:43 CET 2022
+version.api=2105
+vendor=hybris
+group.id=de.hybris.platform
+name=workflow
+description=workflow
+builddate=20220201 1436
+releasedate=20210809 2305
+version=2105.8
+module.name=platform-module

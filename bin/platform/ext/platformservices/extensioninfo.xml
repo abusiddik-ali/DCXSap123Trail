@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+       
+    <extension abstractclassprefix="Generated" classprefix="PlatformServices" managername="PlatformServicesManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="platformservices" usemaven="false">
+              
+        <requires-extension name="europe1"/>
+              
+        <requires-extension name="deliveryzone"/>
+              
+        <requires-extension name="paymentstandard"/>
+              
+        <!-- actually there is dependency to comments but this causes
+      	   cyclic dependencies errors !!!
+      <requires-extension name="comments"/>
+      -->
+              
+        <coremodule generated="false" manager="de.hybris.platform.jalo.extension.GenericManager" packageroot="de.hybris.platform.platformservices"/>
+           
+    </extension>
+          
+
+</extensioninfo>

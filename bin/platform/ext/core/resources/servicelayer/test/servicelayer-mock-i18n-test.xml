@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--  the mocked i18n services  -->
+    
+	<alias alias="i18nService" name="mockI18NService" />
+	
+	<bean id="mockI18NService" parent="abstractBusinessService" 
+		class="de.hybris.platform.servicelayer.i18n.impl.DefaultI18NService" >
+		<property name="i18nDao">
+			<bean class="de.hybris.platform.servicelayer.i18n.I18NDaoMock"/>
+		</property>
+		<property name="localeService" ref="localizationService"/>
+	</bean>
+
+	<!--  Localization Service (data and session language/locale)-->
+	<alias alias="localizationService" name="defaultLocalizationService"/>
+	<bean id="defaultLocalizationService" class="de.hybris.platform.servicelayer.internal.i18n.impl.DefaultLocalizationService"  parent="abstractService"/>
+
+</beans>

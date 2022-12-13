@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<audit-report-config name="UserReport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="../audit/audit.xsd">
+    <given-root-type>User</given-root-type>
+    <types>
+        <type code="User" displayName="User">
+            <reference-attributes>
+                <reference-attribute qualifier="defaultPaymentAddress" displayName="defaultPaymentAddress" type="Address"/>
+            </reference-attributes>
+        </type>
+
+        <type code="Address">
+            <atomic-attributes>
+                <atomic-attribute qualifier="streetname" displayName="street"/>
+            </atomic-attributes>
+        </type>
+
+    </types>
+
+</audit-report-config>

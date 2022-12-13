@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<project name="hac_buildcallbacks" >
+
+	<macrodef name="hac_after_clean">
+		<sequential>
+			<echo level="info" message="Deleting hac extension jars"/>
+			<delete quiet="true">
+				<fileset dir="${ext.hac.path}/web/webroot/WEB-INF/lib">
+					<include name="*_hac.jar"/>
+				</fileset>
+			</delete>
+		</sequential>
+	</macrodef>
+
+	<patternset id="extension.hac.source.filter">
+		<patternset refid="extension.source.filter" />
+		<exclude name="web/webroot/WEB-INF/lib/*_hac.jar"/>
+	</patternset>
+
+	<patternset id="extension.hac.binary.filter">
+		<patternset refid="extension.binary.filter" />
+		<exclude name="web/webroot/WEB-INF/lib/*_hac.jar"/>
+	</patternset>
+
+</project>

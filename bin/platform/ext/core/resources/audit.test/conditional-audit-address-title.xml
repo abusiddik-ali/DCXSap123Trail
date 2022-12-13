@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<conditional-audit-config>
+    <audit-group name="title-1">
+        <condition>!get('code').endsWith('audit1')</condition>
+        <type code="Title"/>
+    </audit-group>
+
+    <audit-group name="title-2">
+        <condition>!get('code').endsWith('audit2')</condition>
+        <type code="Title"/>
+    </audit-group>
+</conditional-audit-config>

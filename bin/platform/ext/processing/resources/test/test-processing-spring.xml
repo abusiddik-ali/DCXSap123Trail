@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="stopTaskEngineRunListener" class="de.hybris.platform.task.utils.TaskEngineTestRunListener" scope="prototype">
+		<property name="taskService" ref="taskService"/>
+	</bean>
+
+	<bean id="preWaitAction" class="de.hybris.platform.processengine.RestartBusinessProcessTest.PreWaitAction"/>
+
+	<bean id="postWaitAction" class="de.hybris.platform.processengine.RestartBusinessProcessTest.PostWaitAction"/>
+
+	<bean id="repairBusinessProcessResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="classpath:/processengine/test/repairBusinessProcessDefinition.xml"/>
+	</bean>
+
+	<bean id="testDistributedProcessHandler" class="de.hybris.platform.processing.distributed.defaultimpl.TestDistributedProcessHandler">
+		<constructor-arg ref="modelService" />
+		<constructor-arg ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="testCronJobFactory" class="de.hybris.platform.servicelayer.cronjob.TestCronJobFactory"/>
+
+	<bean id="testSimpleDistributedProcessHandler"
+		  class="de.hybris.platform.processing.distributed.simple.SimpleDistributedProcessHandler"
+		  parent="abstractSimpleDistributedProcessHandler">
+		<constructor-arg>
+			<bean class="de.hybris.platform.processing.distributed.simple.TestBatchProcessor">
+				<property name="modelService" ref="modelService"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="multiValueTestSimpleDistributedProcessHandler"
+		  class="de.hybris.platform.processing.distributed.simple.SimpleDistributedProcessHandler"
+		  parent="abstractSimpleDistributedProcessHandler">
+		<constructor-arg>
+			<bean class="de.hybris.platform.processing.distributed.simple.MultiValueTestBatchProcessor">
+				<property name="modelService" ref="modelService"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="completelyFailingTestSimpleDistributedProcessHandler"
+		  class="de.hybris.platform.processing.distributed.simple.SimpleDistributedProcessHandler"
+		  parent="abstractSimpleDistributedProcessHandler">
+		<constructor-arg>
+			<bean class="de.hybris.platform.processing.distributed.simple.CompletelyFailingBatchProcessor">
+				<property name="modelService" ref="modelService"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="sometimesFailingTestSimpleDistributedProcessHandler"
+		  class="de.hybris.platform.processing.distributed.simple.SimpleDistributedProcessHandler"
+		  parent="abstractSimpleDistributedProcessHandler">
+		<constructor-arg>
+			<bean class="de.hybris.platform.processing.distributed.simple.SometimesFailingBatchProcessor">
+				<property name="modelService" ref="modelService"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+    <bean id="testAbortableJobPerformable" class="de.hybris.platform.servicelayer.cronjob.TestAbortableJobPerformable" parent="abstractJobPerformable"/>
+
+</beans>

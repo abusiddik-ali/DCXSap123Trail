@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="testSystemSetupAuditDAO" class="de.hybris.platform.core.initialization.testbeans.TestSystemSetupAuditDAO" />
+
+    <bean id="systemSetupCollector"
+          class="de.hybris.platform.core.initialization.impl.SystemSetupCollectorImpl">
+        <property name="systemSetupAuditDAO" ref="testSystemSetupAuditDAO"/>
+    </bean>
+
+    <bean id="systemSetupTypeProcessTestBean"
+          class="de.hybris.platform.core.initialization.testbeans.SystemSetupTypeProcessTestBean"/>
+    <bean id="systemSetupParameterTestBean"
+          class="de.hybris.platform.core.initialization.testbeans.SystemSetupParameterTestBean"/>
+    <bean id="systemSetupEmptyTestBean"
+          class="de.hybris.platform.core.initialization.testbeans.SystemSetupEmptyTestBean"/>
+</beans>

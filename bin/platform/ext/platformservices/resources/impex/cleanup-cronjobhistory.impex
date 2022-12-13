@@ -1,0 +1,42 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+
+#% if: Config.getBoolean("cronjobhistory.cleanupjob.create", Boolean.TRUE)
+
+# RETENTION RULE for cleaning up cron job history items
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;actionReference;
+; cronJobHistoryRetentionRule; SELECT {h1:PK}, {h1:itemtype} FROM {CronJobHistory as h1} WHERE {h1:creationtime} < (SELECT max FROM ({{SELECT max({h2:creationtime}) as max, {h2:cronjob} as cronjob FROM {CronJobHistory as h2} GROUP BY {h2:cronjob} }}) temptable where cronjob = {h1:cronjob}); basicRemoveCleanupAction;
+
+# JOB                  
+INSERT_UPDATE RetentionJob; code[unique=true]; retentionRule(code); batchSize
+; cronJobHistoryRetentionJob; cronJobHistoryRetentionRule; 100
+
+# CRON JOB
+INSERT_UPDATE CronJob;code[unique=true]; job(code); sessionLanguage(isoCode)[default=en]
+"#% beforeEach:
+import de.hybris.platform.core.Registry;
+import de.hybris.platform.cronjob.model.CronJobModel;
+CronJobModel cronJob;
+try
+{
+    cronJob = Registry.getApplicationContext().getBean(""cronJobService"").getCronJob(""cronJobHistoryRetentionCronJob"");
+}
+catch (Exception e)
+{
+    cronJob = null;
+}
+if (cronJob != null)
+{
+    line.clear();
+}" 
+; cronJobHistoryRetentionCronJob; cronJobHistoryRetentionJob;
+
+# Trigger, default run every 1 hour
+INSERT_UPDATE Trigger; active; second; minute; hour; day; month; year; cronJob(code)[unique=true]; relative; cronExpression
+"#% beforeEach:
+line.put(Integer.valueOf(10), Config.getString(""cronjobhistory.cleanupjob.cronexpression"", ""0 0 * ? * *"")); 
+"
+; true; 0; 0; 0; 0; 0; 0; cronJobHistoryRetentionCronJob; true ;
+
+#% endif:

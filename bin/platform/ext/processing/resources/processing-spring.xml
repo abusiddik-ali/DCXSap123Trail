@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="Task_executionDateAttributeHandler"
+			class="de.hybris.platform.servicelayer.dynamic.TaskExecutionDateAttributeHandler"/>
+
+	<bean id="Task_expirationDateAttributeHandler"
+			class="de.hybris.platform.servicelayer.dynamic.TaskExpirationDateAttributeHandler"/>
+
+	<bean id="TaskCondition_expirationDateAttributeHandler"
+			class="de.hybris.platform.servicelayer.dynamic.TaskConditionExpirationDateAttributeHandler"/>
+
+	<bean id="TaskPrepareInterceptor" class="de.hybris.platform.servicelayer.interceptor.TaskPrepareInterceptor" />
+
+	<bean class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="TaskPrepareInterceptor"/>
+		<property name="typeCode" value="Task"/>
+	</bean>
+
+	<bean id="TaskConditionPrepareInterceptor" class="de.hybris.platform.servicelayer.interceptor.TaskConditionPrepareInterceptor" />
+
+	<bean class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="TaskConditionPrepareInterceptor"/>
+		<property name="typeCode" value="TaskCondition"/>
+	</bean>
+
+    <bean id="distributedProcessCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+        <property name="key" value="${keygen.distributed.process.code.name}"/>
+        <property name="digits" value="${keygen.distributed.process.code.digits}"/>
+        <property name="start" value="${keygen.distributed.process.code.start}"/>
+        <property name="type" value="${keygen.distributed.process.code.type}"/>
+        <property name="template" value="${keygen.distributed.process.code.template}"/>
+    </bean>
+
+    <bean id="abstractSimpleDistributedProcessHandler"
+          class="de.hybris.platform.processing.distributed.simple.SimpleAbstractDistributedProcessHandler"
+          abstract="true">
+        <constructor-arg ref="defaultModelService"/>
+        <constructor-arg ref="defaultFlexibleSearchService"/>
+        <constructor-arg ref="defaultDistributedProcessService"/>
+    </bean>
+
+    <bean id="simpleScriptingDistributedProcessHandler"
+          class="de.hybris.platform.processing.distributed.simple.SimpleScriptingDistributedProcessHandler"
+          parent="abstractSimpleDistributedProcessHandler">
+        <constructor-arg ref="scriptingLanguagesService"/>
+    </bean>
+
+</beans>

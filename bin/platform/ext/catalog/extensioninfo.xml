@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+--><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
+    		
+    <extension abstractclassprefix="Generated" name="catalog" usemaven="false">
+        			
+        <requires-extension name="validation"/>
+        			
+        <!--europe1 is needed for special treatment of PDTRows. However you can use your own price factory
+			    but you still have to include europe1 as an extension -->
+        			
+        <coremodule generated="true" manager="de.hybris.platform.catalog.jalo.CatalogManager" packageroot="de.hybris.platform.catalog"/>
+        	
+
+		
+    </extension>
+    		
+
+</extensioninfo>

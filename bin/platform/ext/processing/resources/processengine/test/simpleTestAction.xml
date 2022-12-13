@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="start" name="simpleTestProcessName">
+	<action id="start" bean="noAction">
+		<transition name="OK" to="success"/>
+	</action>
+	<end id="success" state="SUCCEEDED">Everything was fine</end>
+</process>

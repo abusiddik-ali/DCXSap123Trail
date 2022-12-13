@@ -1,0 +1,10 @@
+# Hybris123SnippetStart hybris123gitignore
+log/
+temp/
+bin/modules/
+bin/platforms
+roles/
+data/
+config/
+
+# Hybris123SnippetEnd

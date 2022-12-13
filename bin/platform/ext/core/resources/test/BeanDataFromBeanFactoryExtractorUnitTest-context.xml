@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="existingNoAliases" class="java.lang.String" />
+
+    <alias name="existingWithAliases" alias="existingWithAliases1" />
+    <alias name="existingWithAliases" alias="existingWithAliases2" />
+    <bean id="existingWithAliases" class="java.lang.String" />
+
+    <bean id="abstractBean" class="java.lang.String" abstract="true" />
+
+    <util:list id="listBean" />
+    <util:set id="setBean" />
+    <util:map id="mapBean" />
+
+    <alias name="lazyBean" alias="lazyBean1" />
+    <alias name="lazyBean" alias="lazyBean2" />
+    <bean id="lazyBean" lazy-init="true" class="de.hybris.platform.masterserver.collector.system.impl.spring.BeanDataFromBeanFactoryExtractorUnitTest.InstantiationTest" />
+
+    <bean id="notDefinedClassBean" class="no.class.def.Found" abstract="true" />
+
+</beans>

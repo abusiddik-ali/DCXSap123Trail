@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="start" name="multipleProcessesChild">
+
+	<scriptAction id="start">
+		<script type='groovy'>return 'OK';</script>
+		<transition name="OK" to="wait"/>
+	</scriptAction>
+
+	<wait id='wait' prependProcessCode='true' then='failed'>
+		<case event='EndChildProcess'>
+			<choice id='cancelChildProcess' then='childProcessEnd'/>
+		</case>
+	</wait>
+
+	<scriptAction id="childProcessEnd">
+		<script type='groovy'>de.hybris.platform.processengine.MultipleProcessesWithCycleTest.confirmChildProcessCancellation();
+			return 'OK';</script>
+		<transition name="OK" to="success"/>
+	</scriptAction>
+
+	<end id='success' state='SUCCEEDED'>Child process completed.</end>
+	<end id='failed' state='FAILED'>Child process failed.</end>
+</process>

@@ -1,0 +1,57 @@
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<config xmlns="urn:org:jgroups"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/JGroups-4.0.xsd">
+
+
+    <TCP
+            recv_buf_size="${hybris.jgroups.recv_buf_size:20M}"
+            send_buf_size="${hybris.jgroups.send_buf_size:640K}"
+            max_bundle_size="64K"
+            sock_conn_timeout="300"
+            thread_pool.enabled="true"
+            thread_pool.min_threads="1"
+            thread_pool.max_threads="${hybris.jgroups.thread_pool.max_threads}"
+            thread_pool.keep_alive_time="5000"
+            bind_addr="${hybris.jgroups.bind_addr}"
+            bind_port="${hybris.jgroups.bind_port}" />
+
+
+    <org.jgroups.protocols.kubernetes.KUBE_PING
+            port_range="${hybris.jgroups.portRange}"
+            connectTimeout="${hybris.jgroups.connectTimeout}"
+            readTimeout="${hybris.jgroups.readTimeout}"
+            operationAttempts="${hybris.jgroups.operationAttempts}"
+            operationSleep="${hybris.jgroups.operationSleep}"
+            masterProtocol="${hybris.jgroups.masterProtocol}"
+            masterHost="${hybris.jgroups.masterHost}"
+            masterPort="${hybris.jgroups.masterPort}"
+            apiVersion="${hybris.jgroups.apiVersion}"
+            clientCertFile="${hybris.jgroups.clientCertFile}"
+            clientKeyFile="${hybris.jgroups.clientKeyFile}"
+            clientKeyPassword="${hybris.jgroups.clientKeyPassword}"
+            clientKeyAlgo="${hybris.jgroups.clientKeyAlgo}"
+            caCertFile="${hybris.jgroups.caCertFile}"
+            saTokenFile="${hybris.jgroups.saTokenFile}"
+            namespace="${hybris.jgroups.namespace}"
+            labels="${hybris.jgroups.labels}"
+            dump_requests="${hybris.jgroups.dumpRequests}"
+            split_clusters_during_rolling_update="${hybris.jgroups.splitClustersDuringRollingUpdate}"
+    />
+
+    <MERGE3 min_interval="10000" max_interval="30000" />
+    <FD_SOCK />
+    <FD timeout="3000" max_tries="3" />
+    <VERIFY_SUSPECT timeout="1500" />
+    <BARRIER />
+    <pbcast.NAKACK2 use_mcast_xmit="false" discard_delivered_msgs="true" />
+    <UNICAST3 />
+    <pbcast.STABLE stability_delay="1000" desired_avg_gossip="50000" max_bytes="4M" />
+    <pbcast.GMS print_local_addr="true" join_timeout="3000" view_bundling="true" />
+    <MFC max_credits="20M" min_threshold="0.6" />
+    <FRAG2 frag_size="60K" />
+    <pbcast.STATE_TRANSFER />
+
+</config>
