@@ -2,7 +2,7 @@
 log/
 temp/
 bin/modules/
-bin/platforms
+bin/platform/
 roles/
 data/
 config/
