@@ -69,7 +69,7 @@
 			</attributes>
 		</itemtype>
 -->
-		<!-- Hybris123SnippetStart concerttours-items.xml_relations --> 
+
 		<!-- Hybris123SnippetStart concerttours-items.xml_concert -->
 	      <itemtype generate="true" code="Concert" extends="VariantProduct" autocreate="true">
 	        <attributes>
