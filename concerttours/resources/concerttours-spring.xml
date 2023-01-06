@@ -9,7 +9,8 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop.xsd">
-
+           
+	<!-- <context:component-scan base-package="concerttours"/> -->
 	<!--
 	The hybris platform provides one single Spring application context for beans located at the jalo layer.
 	Each extension can add beans to this context by specifying them at this configuration file.
@@ -82,5 +83,22 @@
         <property name="mediaService" ref="mediaService"/>
         <property name="flexibleSearchService" ref="flexibleSearchService"/>
     </bean>
-			
+	<!-- Added Custom page -->
+	<bean id="ConcerttoursCustomSetup" class="concerttours.setup.ConcerttoursCustomSetup" >
+		<property name="importService" ref="importService"/>
+	</bean>	
+	
+	<!-- Added Custom Band DAO -->
+	
+	<alias name = "defaultBandDAO" alias = "bandDAO" />
+		<bean id = "defaultBandDAO" class = "concerttours.daos.impl.DefaultBandDAO" >		
+	</bean>
+	
+	<alias name = "defaultBandService" alias = "bandService" />
+	<bean id = "defaultBandService" class = "concerttours.service.impl.DefaultBandService" >
+		<property name = "bandDAO" ref = "bandDAO" />
+	</bean>
+	
+	
+	
 </beans>
